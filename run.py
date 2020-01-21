@@ -3,7 +3,7 @@
 import os
 import subprocess
 import sys
-
+import shlex
 
 def sanitize(key_name):
     v = os.environ.get(f"INPUT_{key_name}")
@@ -23,7 +23,9 @@ def ecr_login(region):
     login_command, stderr = get_login.communicate()
     if stderr:
         print(stderr.decode('utf-8'))
-    docker_login = subprocess.Popen(login_command.decode('utf-8').strip().split(" "), 
+    cmd = shlex.split(login_command.decode('utf-8').strip())
+    print(cmd)
+    docker_login = subprocess.Popen(cmd, 
            stdout=subprocess.PIPE, 
            stderr=subprocess.STDOUT)
     result, stderr = docker_login.communicate()
@@ -43,7 +45,7 @@ def evaluate_tags(account_url, repo, raw_tags):
         if stripped_token[0] != "%":
             tags.append(tag(account_url, repo, stripped_token))
             continue
-        cmd = stripped_token[1:].split(" ")
+        cmd = shlex.split(stripped_token[1:])
         tag_eval = subprocess.Popen(cmd, 
            stdout=subprocess.PIPE, 
            stderr=subprocess.STDOUT)
