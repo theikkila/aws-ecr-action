@@ -45,8 +45,7 @@ def evaluate_tags(account_url, repo, raw_tags):
         if stripped_token[0] != "%":
             tags.append(tag(account_url, repo, stripped_token))
             continue
-        cmd = shlex.split(stripped_token[1:])
-        tag_eval = subprocess.Popen(cmd, 
+        tag_eval = subprocess.Popen(["sh", "-c", stripped_token[1:]], 
            stdout=subprocess.PIPE, 
            stderr=subprocess.STDOUT)
         result, stderr = tag_eval.communicate()
