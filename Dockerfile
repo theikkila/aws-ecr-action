@@ -7,8 +7,8 @@ RUN apk update \
   && pip install awscli \
   && apk --purge -v del py-pip
 
-ADD entrypoint.sh /entrypoint.sh
+ADD entrypoint.py /entrypoint.py
 
-RUN ["chmod", "+x", "/entrypoint.sh"]
+RUN ["chmod", "+x", "/entrypoint.py"]
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.py"]

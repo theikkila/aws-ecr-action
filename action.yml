@@ -1,5 +1,5 @@
 name: AWS ECR
-author: Lee Sun-Hyoup <kciter@naver.com>
+author: Teemu Heikkilä <teemu@emblica.com>
 branding:
   icon: upload-cloud
   color: orange
@@ -20,9 +20,6 @@ inputs:
   region:
     description: The AWS region
     required: true
-  create_repo:
-    description: Set this to true to create the repository if it does not already exist
-    default: false
   tags:
     description: Comma-separated string of ECR image tags
     default: latest
