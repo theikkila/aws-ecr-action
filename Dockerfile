@@ -2,13 +2,14 @@ FROM docker:19.03.4
 
 RUN apk update \
   && apk upgrade \
-  && apk add --no-cache --update python py-pip coreutils \
+  && apk add --no-cache --update python3 py-pip coreutils \
   && rm -rf /var/cache/apk/* \
   && pip install awscli \
   && apk --purge -v del py-pip
 
-ADD entrypoint.py /entrypoint.py
+ADD run.py /run.py
+ADD entrypoint.sh /entrypoint.sh
 
-RUN ["chmod", "+x", "/entrypoint.py"]
+RUN ["chmod", "+x", "/entrypoint.sh"]
 
-ENTRYPOINT ["/entrypoint.py"]
+ENTRYPOINT ["/bin/sh", "./entrypoint.sh"]
